@@ -1,0 +1,268 @@
+$fadeOff: left 0s 0.4s, opacity 0.4s;
+$fadeOn: left 0s, opacity 0.4s;
+$width: {{ settings.page_width }}px;
+$bg: {{ settings.background_color }};
+$border: {{ settings.border_color }};
+$text: {{ settings.text_color }};
+$mediumText: {{ settings.medium_text_color }};
+$bp: 960px;
+
+/*
+  Reset
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: $bg;
+  color: $text;
+  font-size: 100%;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+img,
+svg {
+  display: block;
+  width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  outline: none;
+  border: none;
+  background: transparent;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+/*
+  Page
+*/
+
+.width {
+  max-width: $width;
+  width: calc(100% - 40px);
+  margin: 0 auto;
+
+  @media (min-width: $bp) {
+    width: calc(100% - 80px);
+  }
+}
+
+.hero {
+  background: #ddd;
+  color: white;
+  padding: 200px 0;
+}
+
+/*
+  Header 
+*/
+
+.header {
+  background: $bg;
+}
+
+.header-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-logo {
+  display: block;
+}
+
+.header-hamburger {
+  width: 32px;
+  display: block;
+
+  @media (min-width: $bp) {
+    display: none;
+  }
+}
+
+.header-hamburger-bar {
+  height: 2px;
+  width: 100%;
+  background: $text;
+  display: block;
+  border-radius: 2px;
+
+  & + & {
+    margin-top: 6px;
+  }
+}
+
+
+.header-nav-overlay {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  z-index: 9;
+  opacity: 0;
+  left: -100%;
+  transition: $fadeOff;
+
+  @media (min-width: $bp) {
+    display: none;
+  }
+
+  .nav-active & {
+    left: 0;
+    opacity: 1;
+    transition: $fadeOn;
+
+    @media (min-width: $bp) {
+      display: none;
+    }
+  }
+}
+
+
+.header-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  overflow: auto;
+  background: $bg;
+  width: 90%;
+  max-width: 300px;
+  z-index: 10;
+  transform: translateX(-100%);
+  transition: 0.4s transform;
+
+  @media (min-width: $bp) {
+    position: static;
+    display: inline-flex;
+    align-items: center;
+    gap: 50px;
+    width: auto;
+    max-width: none;
+    height: auto;
+    overflow: initial;
+    background: transparent;
+    transform: none;
+  }
+
+  .nav-active & {
+    transform: none;
+  }
+}
+
+.header-nav-item {
+  padding: 20px;
+  border-bottom: 1px solid $border;
+
+  @media (min-width: $bp) {
+    padding: 0;
+    border: none;
+    position: relative;
+  } 
+}
+
+.header-nav-anchor {
+  display: block;
+  color: $text;
+  font-size: 20px;
+
+  @media (min-width: $bp) {
+    display: inline-block;
+    padding: 20px 0;
+    margin: -20px 0;
+    font-size: 18px;
+  } 
+}
+
+.header-sub {
+  padding: 0 20px;
+  margin-top: 15px;
+
+  @media (min-width: $bp) {
+    position: absolute;
+    top: 100%;
+    transform: translateX(-50%);
+    background: $bg;
+    border-radius: 20px;
+    width: 220px;
+    padding: 20px;
+    opacity: 0;
+    left: -9999px;
+    transition: $fadeOff;
+    box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.2);
+  }
+
+  &:before {
+    display: block;
+    content: '';
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background: $bg;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg) ;
+    top: 0;
+    left: 50%;
+    box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.2);
+    z-index: -1;
+  }
+
+  &:after {
+    width: 44px;
+    height: 16px;
+    background: $bg;
+    top: 0;
+    left: 50%;
+    margin-left: -22px;
+    content: '';
+    position: absolute;
+
+  }
+
+  .header-nav-anchor:hover + &,
+  &:hover {
+    @media (min-width: $bp) {
+      left: 50%;
+      opacity: 1;
+      transition: $fadeOn;
+    }
+  }
+}
+
+.header-sub-item {
+  display: block;
+
+  & + & {
+    margin-top: 5px;
+  }
+}
+
+.header-sub-anchor {
+  color: $mediumText;
+  transition: 0.2s color;
+
+  &:hover {
+    color: $text;
+  }
+}
